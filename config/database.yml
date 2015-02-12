@@ -23,7 +23,7 @@ default: &default
 
 development:
   <<: *default
-  database: travis-test_development
+  database: travis-ci_development
 
 #test:
 #  <<: *default

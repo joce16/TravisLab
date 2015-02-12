@@ -1,7 +1,24 @@
 language: ruby
 rvm:
-  - 2.0.0-p481
-#   //make sure the name here matchers your project name..i.e if you did rails new travis-test..use 
-# //travis_test like below
+- 2.0.0-p481
 before_script:
-  - psql -c 'create database travis_test_test;' -U postgres
+- psql -c 'create database travis_ci_test;' -U postgres
+deploy:
+  api_key:
+    secure: RjdjBPQ+46DPvZab3KAJHFMwKnmD5tOdUSW8d8OYj9DMLsWsFTN4NOPK6OH34BQZYp3NkGle/ijkSSFldZKJ0+TZ9ojF7uiOYeVlDw80JgH9aR+OJwZZMtLNLKZ/S/nx0WjoEXPZWn/ABUctNaMn8jJJEWAqx4BJeVXIvdN0cPU=
+provider: heroku
+api_key: API KEY
+
+language: ruby
+rvm:
+- 2.0.0-p481
+before_script:
+- psql -c 'create database travis_ci_test;' -U postgres
+deploy:
+  provider: heroku
+  api_key:
+    secure: KxoeHbmu3K4czIjYv/MdfDloLgU2MzT9VrviiNfEc08if9U+brOHFC4pKAB9e63omxpojB3dNHGwMeKPccOSHpAxPvQJ0UK4+mcgi1eLjRCtHsu3K88tLoesAFDW/cXKxpLkIEOtPS72o3t+lNdBA60cqOAP87fb0y5ULSBLtqQ=
+  app: travis-test-app
+  run:
+    - "rake db:migrate"
+    - restart
